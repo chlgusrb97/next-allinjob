@@ -22,9 +22,3 @@ body {
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
-
-@layer base {
-  body>div {
-    @apply grid grid-cols-12 gap-[24px] justify-center min-h-screen
-  }
-}
