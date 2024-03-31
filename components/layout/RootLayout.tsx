@@ -1,4 +1,5 @@
 import { FC } from "react";
+import styles from "./RootLayout.module.css";
 
 type Props = {
   children: JSX.Element;
@@ -7,9 +8,7 @@ type Props = {
 const RootLayout: FC<Props> = ({ children }) => {
   return (
     <>
-      <main className="grid grid-cols-12 gap-[24px] justify-center min-h-screen">
-        {children}
-      </main>
+      <main className={styles.main_layout}>{children}</main>
     </>
   );
 };
