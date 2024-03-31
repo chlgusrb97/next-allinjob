@@ -7,7 +7,7 @@ type Props = {
 const RootLayout: FC<Props> = ({ children }) => {
   return (
     <>
-      <main className="min-h-screen grid-cols-12 justify-center gap-[24px]">
+      <main className="grid min-h-screen grid-cols-12 justify-center gap-[24px]">
         {children}
       </main>
     </>
