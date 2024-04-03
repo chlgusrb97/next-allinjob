@@ -100,6 +100,9 @@ module.exports = {
         lineHeight: "14px",
       },
     },
+    boxShadow: {
+      inner: "inset 0 0 0 1px #a0a09f",
+    },
   },
   plugins: [],
 };
