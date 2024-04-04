@@ -1,8 +1,14 @@
 const menus = ["공모전", "대외활동", "자격증", "어학", "인턴", "취준job담"];
 
-export default function Header() {
+type Props = {
+  className: string;
+};
+
+export default function Header(props: Props) {
   return (
-    <nav className="grid-layout border-b-[1px] border-b-black-50 py-5">
+    <nav
+      className={`${props.className} grid-layout border-b-[1px] border-b-black-50 py-5`}
+    >
       <h1 className="col-span-2 text-2xl font-bold text-orange-500">
         ALL IN JOB
       </h1>
