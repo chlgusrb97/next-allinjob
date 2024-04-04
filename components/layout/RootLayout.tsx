@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Header from "../Header";
 
 type Props = {
   children: JSX.Element;
@@ -7,9 +8,8 @@ type Props = {
 const RootLayout: FC<Props> = ({ children }) => {
   return (
     <>
-      <main className="grid min-h-screen grid-cols-12 justify-center gap-[24px]">
-        {children}
-      </main>
+      <Header className="grid-layout" />
+      <main className="grid-layout">{children}</main>
     </>
   );
 };
