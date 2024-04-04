@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Login() {
   return (
-    <div className="login-wrapper">
+    <div className="absolute inset-0 flex items-center justify-center bg-orange-400">
       <div className="flex w-[588px] flex-col items-center justify-center rounded-3xl bg-white p-[30px]">
         <Link className="mb-16" href="/">
           <Image src="/logo.svg" alt="logo" width={292} height={247} />
