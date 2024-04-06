@@ -11,20 +11,24 @@ export type CardType = {
   enterprise: string;
 };
 
+export const cardQueryFn = async (): Promise<CardType[]> => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/crawling/main/outside`,
+  );
+  const data = await res.json();
+  console.log(data);
+  return data.data;
+};
+
 const CardList = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["card"],
-    queryFn: async (): Promise<CardType[]> => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/crawling/main/outside`,
-      );
-      const data = await res.json();
-      console.log(data);
-      return data.data;
-    },
+    queryFn: cardQueryFn,
   });
 
-  if (isLoading) return <div>loading...</div>;
+  console.log(isLoading, data);
+
+  if (isLoading) return <div>loading</div>;
 
   if (data)
     return (
