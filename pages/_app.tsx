@@ -1,4 +1,8 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  HydrationBoundary,
+} from "@tanstack/react-query";
 import "@/styles/globals.css";
 
 import type { AppProps } from "next/app";
@@ -16,14 +20,20 @@ export default function App({ Component, pageProps }: AppProps) {
       LayoutComponent = React.Fragment;
       break;
     }
+    case "signup": {
+      LayoutComponent = React.Fragment;
+      break;
+    }
   }
 
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <LayoutComponent>
-          <Component {...pageProps} />
-        </LayoutComponent>
+        <HydrationBoundary state={pageProps.dehydratedProps}>
+          <LayoutComponent>
+            <Component {...pageProps} />
+          </LayoutComponent>
+        </HydrationBoundary>
       </QueryClientProvider>
     </RecoilRoot>
   );
