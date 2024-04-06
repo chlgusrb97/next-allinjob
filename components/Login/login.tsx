@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import SocialLoginButton from "./Button/SocialLoginBtn";
 
 export default function Login() {
   return (
-    <div className="login-wrapper">
+    <div className="absolute inset-0 flex items-center justify-center bg-orange-400">
       <div className="flex w-[588px] flex-col items-center justify-center rounded-3xl bg-white p-[30px]">
         <Link className="mb-16" href="/">
           <Image src="/logo.svg" alt="logo" width={292} height={247} />
@@ -13,26 +14,8 @@ export default function Login() {
         </Link>
 
         <div className="flex w-full items-center justify-center gap-[60px] border-t border-line-normal pt-8">
-          <button>
-            <Image
-              className="mb-3"
-              src="/kakaotalk.svg"
-              alt="카카오 로그인"
-              width={80}
-              height={80}
-            />
-            <p>카카오 로그인</p>
-          </button>
-          <button>
-            <Image
-              className="mb-3"
-              src="/google.svg"
-              alt="구글 로그인"
-              width={80}
-              height={80}
-            />
-            <p>구글 로그인</p>
-          </button>
+          <SocialLoginButton imageSrc="/kakaotalk.svg" socialName="카카오" />
+          <SocialLoginButton imageSrc="/google.svg" socialName="구글" />
         </div>
       </div>
     </div>
