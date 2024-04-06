@@ -13,7 +13,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       gridTemplateColumns: {
-        12: "repeat(12, 78px)",
+        layout: "repeat(12, 78px)",
       },
     },
     colors: {
