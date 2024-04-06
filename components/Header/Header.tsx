@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { menus } from "./menus";
+import { cn } from "@/lib/utils";
 
 type menuKeysType = keyof typeof menus;
 
@@ -13,10 +14,16 @@ export default function Header(props: Props) {
 
   return (
     <nav
-      className={`${props.className} relative z-20 w-full overflow-x-visible border-b-[1px] border-b-black-50`}
+      className={cn(
+        props.className,
+        "relative z-20 w-full overflow-x-visible border-b-[1px] border-b-black-50",
+      )}
     >
       <div
-        className={`${props.className} relative col-span-12 w-full overflow-x-visible py-5`}
+        className={cn(
+          props.className,
+          "relative col-span-12 w-full overflow-x-visible py-5",
+        )}
       >
         <h1 className="col-span-2 text-2xl font-bold text-orange-500">
           ALL IN JOB
@@ -34,7 +41,10 @@ export default function Header(props: Props) {
       </div>
       {isSubMenuOpen ? (
         <div
-          className={`${props.className} absolute right-0 top-full mt-[1px] w-full justify-center bg-white`}
+          className={cn(
+            props.className,
+            "absolute right-0 top-full mt-[1px] w-full justify-center bg-white",
+          )}
           onMouseOver={() => setIsSubMenuOpen(true)}
           onMouseLeave={() => setIsSubMenuOpen(false)}
         >
