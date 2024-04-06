@@ -1,11 +1,14 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@/styles/globals.css";
 
-import type {AppProps} from "next/app";
-import {RecoilRoot} from "recoil";
+import type { AppProps } from "next/app";
+import { RecoilRoot } from "recoil";
 import RootLayout from "@/components/layout/RootLayout";
 import React from "react";
 
-export default function App({Component, pageProps}: AppProps) {
+const queryClient = new QueryClient();
+
+export default function App({ Component, pageProps }: AppProps) {
   let LayoutComponent = RootLayout;
 
   switch (pageProps.layout) {
@@ -17,9 +20,11 @@ export default function App({Component, pageProps}: AppProps) {
 
   return (
     <RecoilRoot>
-      <LayoutComponent>
-        <Component {...pageProps} />
-      </LayoutComponent>
+      <QueryClientProvider client={queryClient}>
+        <LayoutComponent>
+          <Component {...pageProps} />
+        </LayoutComponent>
+      </QueryClientProvider>
     </RecoilRoot>
   );
 }
