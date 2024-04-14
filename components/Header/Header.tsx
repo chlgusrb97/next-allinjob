@@ -28,11 +28,14 @@ export default function Header(props: Props) {
         <h1 className="col-span-2 text-2xl font-bold text-orange-500">
           ALL IN JOB
         </h1>
-        <div className="items-center rounded-sm border border-black-200 p-2 hover:cursor-pointer mobile:flex lg:hidden">
+        <div
+          onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+          className="items-center rounded-sm border border-black-200 p-2 hover:cursor-pointer mobile:flex lg:hidden"
+        >
           <AlignJustify />
         </div>
         <ul
-          className="col-span-8 items-center justify-between mobile:hidden lg:flex"
+          className="col-span-8center gap-5 mobile:hidden lg:flex lg:justify-between"
           onMouseOver={() => setIsSubMenuOpen(true)}
         >
           {(Object.keys(menus) as menuKeysType[]).map((menu) => (

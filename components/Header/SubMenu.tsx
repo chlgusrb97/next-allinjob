@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Link } from "lucide-react";
+import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
 import { ClassNameValue } from "tailwind-merge";
 import { menus } from "./menus";
@@ -21,17 +21,20 @@ export default function SubMenu(props: Props) {
       onMouseOver={() => props.setIsSubMenuOpen(true)}
       onMouseLeave={() => props.setIsSubMenuOpen(false)}
     >
-      <div className="col-span-8 col-start-3 flex w-full justify-between pt-5">
+      <div className="col-span-8 col-start-3 w-full justify-between pt-5 mobile:grid md:flex">
         {(Object.keys(menus) as menuKeysType[]).map((menu) => (
-          <ul key={menu} className="w-[115px]">
-            {menus[menu].map((subMenu) => (
-              <li key={subMenu.name} className="mb-2">
-                <Link href={subMenu.href}>
-                  <span>{subMenu.name}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <>
+            <h3 className="text-xl font-bold mobile:block md:hidden">{menu}</h3>
+            <ul key={menu} className="w-[115px]">
+              {menus[menu].map((subMenu) => (
+                <li key={subMenu.name} className="mb-2">
+                  <Link href={subMenu.href}>
+                    <span>{subMenu.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
         ))}
       </div>
     </div>
