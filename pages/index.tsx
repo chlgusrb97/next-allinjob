@@ -17,7 +17,6 @@ export const cardQueryFn = async (): Promise<CardType[]> => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/crawling/main/outside`,
   );
   const data = await res.json();
-  console.log("queryFn", new Date());
   return data.data;
 };
 
