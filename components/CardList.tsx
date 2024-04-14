@@ -1,34 +1,12 @@
+import { cardQueryFn } from "@/pages";
 import { useQuery } from "@tanstack/react-query";
 import Card from "./Card";
 
-export type CardType = {
-  id: string;
-  Dday: number;
-  scrap: number;
-  mainImage: string;
-  view: number;
-  title: string;
-  enterprise: string;
-};
-
-export const cardQueryFn = async (): Promise<CardType[]> => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/crawling/main/outside`,
-  );
-  const data = await res.json();
-  console.log(data);
-  return data.data;
-};
-
-const CardList = () => {
+export default function CardList() {
   const { data, isLoading } = useQuery({
     queryKey: ["card"],
     queryFn: cardQueryFn,
   });
-
-  console.log(isLoading, data);
-
-  if (isLoading) return <div>loading</div>;
 
   if (data)
     return (
@@ -38,6 +16,6 @@ const CardList = () => {
         ))}
       </div>
     );
-};
 
-export default CardList;
+  if (isLoading) return <div>loading</div>;
+}

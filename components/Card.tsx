@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
+import { CardType } from "@/pages";
 import BookMark from "@/public/bookmark.svg";
 import BookMarkIndicator from "@/public/bookmark_indicator.svg";
 import Visibility from "@/public/visibility.svg";
 import Image from "next/image";
-import { CardType } from "./CardList";
 
 type Props = {
   data: CardType;
