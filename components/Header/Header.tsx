@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { AlignJustify } from "lucide-react";
 import { useState } from "react";
 import { ClassNameValue } from "tailwind-merge";
 import SubMenu, { menuKeysType } from "./SubMenu";
@@ -21,18 +22,21 @@ export default function Header(props: Props) {
       <div
         className={cn(
           props.className,
-          "relative col-span-12 w-full overflow-x-visible py-5",
+          "relative col-span-12 w-full py-5 mobile:flex mobile:justify-between mobile:px-5 lg:justify-start",
         )}
       >
         <h1 className="col-span-2 text-2xl font-bold text-orange-500">
           ALL IN JOB
         </h1>
+        <div className="items-center rounded-sm border border-black-200 p-2 hover:cursor-pointer mobile:flex lg:hidden">
+          <AlignJustify />
+        </div>
         <ul
-          className="col-span-8 flex items-center justify-between"
+          className="col-span-8 items-center justify-between mobile:hidden lg:flex"
           onMouseOver={() => setIsSubMenuOpen(true)}
         >
           {(Object.keys(menus) as menuKeysType[]).map((menu) => (
-            <li key={menu} className="w-[115px]">
+            <li key={menu} className="w-[115px] text-center">
               <span className="cursor-pointer">{menu}</span>
             </li>
           ))}

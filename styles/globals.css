@@ -18,12 +18,15 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
+  background: linear-gradient(
+      to bottom,
       transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-  @apply min-h-screen
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  @apply min-h-screen;
 }
 
 .grid-layout {
-  @apply grid grid-cols-layout justify-center gap-[24px]
+  @apply grid-cols-layout justify-center gap-[24px] xl:grid;
 }
