@@ -1,12 +1,11 @@
-import Link from "next/link";
-import { useState } from "react";
-import { menus } from "./menus";
 import { cn } from "@/lib/utils";
-
-type menuKeysType = keyof typeof menus;
+import { useState } from "react";
+import { ClassNameValue } from "tailwind-merge";
+import SubMenu, { menuKeysType } from "./SubMenu";
+import { menus } from "./menus";
 
 type Props = {
-  className: string;
+  className: ClassNameValue;
 };
 
 export default function Header(props: Props) {
@@ -40,28 +39,10 @@ export default function Header(props: Props) {
         </ul>
       </div>
       {isSubMenuOpen ? (
-        <div
-          className={cn(
-            props.className,
-            "absolute right-0 top-full mt-[1px] w-full justify-center bg-white",
-          )}
-          onMouseOver={() => setIsSubMenuOpen(true)}
-          onMouseLeave={() => setIsSubMenuOpen(false)}
-        >
-          <div className="col-span-8 col-start-3 flex w-full justify-between pt-5">
-            {(Object.keys(menus) as menuKeysType[]).map((menu) => (
-              <ul key={menu} className="w-[115px]">
-                {menus[menu].map((subMenu) => (
-                  <li key={subMenu.name} className="mb-2">
-                    <Link href={subMenu.href}>
-                      <span>{subMenu.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
-        </div>
+        <SubMenu
+          className={props.className}
+          setIsSubMenuOpen={setIsSubMenuOpen}
+        />
       ) : null}
     </nav>
   );
