@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 
 type Props = {
   provider: "kakao" | "google";
@@ -15,7 +15,7 @@ const providerName = {
 export default function SocialLoginButton(props: Props) {
   const [popup, setPopup] = useState<Window | null>();
 
-  const googleLoginHandler = () => {
+  const googleLoginPopup = () => {
     const googleOptions =
       "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=500,height=600,top=50,left=50";
     const popup = window.open(
@@ -26,13 +26,19 @@ export default function SocialLoginButton(props: Props) {
     setPopup(popup);
   };
 
-  const kakaoLoginHandler = () => {
+  const kakaoLoginPopup = () => {
     const popup = window.open(
       `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_CALLBACK_URL}&response_type=code`,
       "_blank",
       "width=500,height=600,top=50,left=50",
     );
     setPopup(popup);
+  };
+
+  const handleSocialLoginOpenPopup = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (props.provider === "google") googleLoginPopup();
+    if (props.provider === "kakao") kakaoLoginPopup();
   };
 
   useEffect(() => {
@@ -56,7 +62,6 @@ export default function SocialLoginButton(props: Props) {
     if (!popup) return;
 
     const getGoogleOAuthAccessToken = (e: MessageEvent) => {
-      if (e.origin !== window.location.origin) return;
       const { accessToken } = e.data;
       if (accessToken) {
         popup.close();
@@ -65,7 +70,6 @@ export default function SocialLoginButton(props: Props) {
     };
 
     const getKakaoOAuthAccessToken = (e: MessageEvent) => {
-      if (e.origin !== window.location.origin) return;
       const { code } = e.data;
       if (code) {
         popup.close();
@@ -73,12 +77,21 @@ export default function SocialLoginButton(props: Props) {
       }
     };
 
-    window.addEventListener("message", getKakaoOAuthAccessToken, false);
+    window.addEventListener(
+      "message",
+      (e: MessageEvent) => {
+        if (e.origin !== window.location.origin) return;
+        if (props.provider === "google") getGoogleOAuthAccessToken(e);
+        if (props.provider === "kakao") getKakaoOAuthAccessToken(e);
+      },
+      false,
+    );
 
     return () => {
-      window.removeEventListener("message", () => {
-        if (props.provider === "google") getGoogleOAuthAccessToken;
-        if (props.provider === "kakao") getKakaoOAuthAccessToken;
+      window.removeEventListener("message", (e: MessageEvent) => {
+        if (e.origin !== window.location.origin) return;
+        if (props.provider === "google") getGoogleOAuthAccessToken(e);
+        if (props.provider === "kakao") getKakaoOAuthAccessToken(e);
       });
       popup?.close();
       setPopup(null);
@@ -86,7 +99,7 @@ export default function SocialLoginButton(props: Props) {
   }, [popup]);
 
   return (
-    <button onClick={kakaoLoginHandler}>
+    <button onClick={handleSocialLoginOpenPopup}>
       <Image
         className="mb-3"
         src={props.imageSrc}
