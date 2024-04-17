@@ -14,8 +14,8 @@ export default function Login() {
         </Link>
 
         <div className="flex w-full items-center justify-center gap-[60px] border-t border-line-normal pt-8">
-          <SocialLoginButton imageSrc="/kakaotalk.svg" socialName="카카오" />
-          <SocialLoginButton imageSrc="/google.svg" socialName="구글" />
+          <SocialLoginButton imageSrc="/kakaotalk.svg" provider="kakao" />
+          <SocialLoginButton imageSrc="/google.svg" provider="google" />
         </div>
       </div>
     </div>

@@ -3,8 +3,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type Props = {
-  socialName: "카카오" | "구글";
+  provider: "kakao" | "google";
   imageSrc: string;
+};
+
+const providerName = {
+  kakao: "카카오",
+  google: "구글",
 };
 
 export default function SocialLoginButton(props: Props) {
@@ -72,8 +77,8 @@ export default function SocialLoginButton(props: Props) {
 
     return () => {
       window.removeEventListener("message", () => {
-        if (props.socialName === "구글") getGoogleOAuthAccessToken;
-        if (props.socialName === "카카오") getKakaoOAuthAccessToken;
+        if (props.provider === "google") getGoogleOAuthAccessToken;
+        if (props.provider === "kakao") getKakaoOAuthAccessToken;
       });
       popup?.close();
       setPopup(null);
@@ -85,11 +90,11 @@ export default function SocialLoginButton(props: Props) {
       <Image
         className="mb-3"
         src={props.imageSrc}
-        alt={`${props.socialName} 로그인`}
+        alt={`${props.provider} 로그인`}
         width={80}
         height={80}
       />
-      <p>{props.socialName} 로그인</p>
+      <p>{providerName[props.provider]} 로그인</p>
     </button>
   );
 }
