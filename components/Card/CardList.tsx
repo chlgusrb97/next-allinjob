@@ -1,6 +1,6 @@
 import { cardQueryFn } from "@/pages";
 import { useQuery } from "@tanstack/react-query";
-import Card from "./Card";
+import Card from ".";
 
 export default function CardList() {
   const { data, isLoading } = useQuery({
