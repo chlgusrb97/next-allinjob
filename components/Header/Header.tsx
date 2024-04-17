@@ -1,12 +1,12 @@
-import Link from "next/link";
-import { useState } from "react";
-import { menus } from "./menus";
 import { cn } from "@/lib/utils";
-
-type menuKeysType = keyof typeof menus;
+import { AlignJustify } from "lucide-react";
+import { useState } from "react";
+import { ClassNameValue } from "tailwind-merge";
+import SubMenu, { menuKeysType } from "./SubMenu";
+import { menus } from "./menus";
 
 type Props = {
-  className: string;
+  className: ClassNameValue;
 };
 
 export default function Header(props: Props) {
@@ -22,46 +22,34 @@ export default function Header(props: Props) {
       <div
         className={cn(
           props.className,
-          "relative col-span-12 w-full overflow-x-visible py-5",
+          "relative col-span-12 w-full py-5 mobile:flex mobile:justify-between mobile:px-5 lg:justify-start",
         )}
       >
         <h1 className="col-span-2 text-2xl font-bold text-orange-500">
           ALL IN JOB
         </h1>
+        <div
+          onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
+          className="items-center rounded-sm border border-black-200 p-2 hover:cursor-pointer mobile:flex lg:hidden"
+        >
+          <AlignJustify />
+        </div>
         <ul
-          className="col-span-8 flex items-center justify-between"
+          className="col-span-8center gap-5 mobile:hidden lg:flex lg:justify-between"
           onMouseOver={() => setIsSubMenuOpen(true)}
         >
           {(Object.keys(menus) as menuKeysType[]).map((menu) => (
-            <li key={menu} className="w-[115px]">
+            <li key={menu} className="w-[115px] text-center">
               <span className="cursor-pointer">{menu}</span>
             </li>
           ))}
         </ul>
       </div>
       {isSubMenuOpen ? (
-        <div
-          className={cn(
-            props.className,
-            "absolute right-0 top-full mt-[1px] w-full justify-center bg-white",
-          )}
-          onMouseOver={() => setIsSubMenuOpen(true)}
-          onMouseLeave={() => setIsSubMenuOpen(false)}
-        >
-          <div className="col-span-8 col-start-3 flex w-full justify-between pt-5">
-            {(Object.keys(menus) as menuKeysType[]).map((menu) => (
-              <ul key={menu} className="w-[115px]">
-                {menus[menu].map((subMenu) => (
-                  <li key={subMenu.name} className="mb-2">
-                    <Link href={subMenu.href}>
-                      <span>{subMenu.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
-        </div>
+        <SubMenu
+          className={props.className}
+          setIsSubMenuOpen={setIsSubMenuOpen}
+        />
       ) : null}
     </nav>
   );

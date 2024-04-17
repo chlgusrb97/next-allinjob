@@ -1,14 +1,16 @@
+import "@/styles/globals.css";
 import {
+  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
-  HydrationBoundary,
 } from "@tanstack/react-query";
-import "@/styles/globals.css";
 
-import type { AppProps } from "next/app";
-import { RecoilRoot } from "recoil";
+import BottomAppBar from "@/components/BottomAppBar";
 import RootLayout from "@/components/layout/RootLayout";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import type { AppProps } from "next/app";
 import React, { useState } from "react";
+import { RecoilRoot } from "recoil";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(new QueryClient());
@@ -31,9 +33,13 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps.dehydratedProps}>
           <LayoutComponent>
-            <Component {...pageProps} />
+            <>
+              <Component {...pageProps} />
+              <BottomAppBar />
+            </>
           </LayoutComponent>
         </HydrationBoundary>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </RecoilRoot>
   );
