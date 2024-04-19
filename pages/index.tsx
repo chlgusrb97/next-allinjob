@@ -1,4 +1,4 @@
-import CardList from "@/components/Card/CardList";
+import CardList, { getPosts } from "@/components/Card/CardList";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["card", "prefetch"],
-    queryFn: cardQueryFn,
+    queryFn: () => getPosts(1),
   });
 
   return {
