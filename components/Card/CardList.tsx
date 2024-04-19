@@ -39,7 +39,7 @@ export default function CardList() {
 
   if (cards)
     return (
-      <div className="col-span-12 grid grid-cols-2 gap-[15px] md:grid-cols-4">
+      <div className="smallMobile:grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 col-span-12 grid gap-[15px] mobile:grid-cols-2">
         {cards.map((post, index) => (
           <Card key={post.id + index} data={post} index={index} />
         ))}

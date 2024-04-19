@@ -21,11 +21,11 @@ export default function SubMenu(props: Props) {
       onMouseOver={() => props.setIsSubMenuOpen(true)}
       onMouseLeave={() => props.setIsSubMenuOpen(false)}
     >
-      <div className="col-span-8 col-start-3 w-full justify-between pt-5 mobile:grid md:flex">
+      <div className="col-span-8 col-start-3 w-full justify-between p-5 mobile:grid md:flex">
         {(Object.keys(menus) as menuKeysType[]).map((menu) => (
           <>
             <h3 className="text-xl font-bold mobile:block md:hidden">{menu}</h3>
-            <ul key={menu} className="w-[115px]">
+            <ul key={menu}>
               {menus[menu].map((subMenu) => (
                 <li key={subMenu.name} className="mb-2">
                   <Link href={subMenu.href}>

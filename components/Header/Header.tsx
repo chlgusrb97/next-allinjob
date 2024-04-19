@@ -12,6 +12,8 @@ type Props = {
 export default function Header(props: Props) {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
+  console.log(props.className);
+
   return (
     <nav
       className={cn(
@@ -19,27 +21,30 @@ export default function Header(props: Props) {
         "relative z-20 w-full overflow-x-visible border-b-[1px] border-b-black-50",
       )}
     >
-      <div
-        className={cn(
-          props.className,
-          "relative col-span-12 w-full py-5 mobile:flex mobile:justify-between mobile:px-5 lg:justify-start",
-        )}
-      >
-        <h1 className="col-span-2 text-2xl font-bold text-orange-500">
+      <div className={cn("relative col-span-12 grid grid-cols-12 px-5 py-5")}>
+        <h1
+          className={cn(
+            "col-span-11 text-2xl font-bold text-orange-500",
+            "tablet:col-span-2",
+          )}
+        >
           ALL IN JOB
         </h1>
         <div
           onClick={() => setIsSubMenuOpen(!isSubMenuOpen)}
-          className="items-center rounded-sm border border-black-200 p-2 hover:cursor-pointer mobile:flex lg:hidden"
+          className="tablet:hidden flex aspect-square h-[32px] items-center rounded-sm border border-black-200 p-2 hover:cursor-pointer"
         >
           <AlignJustify />
         </div>
         <ul
-          className="col-span-8center gap-5 mobile:hidden lg:flex lg:justify-between"
+          className="tablet:flex col-span-10 hidden gap-5 lg:justify-between"
           onMouseOver={() => setIsSubMenuOpen(true)}
         >
           {(Object.keys(menus) as menuKeysType[]).map((menu) => (
-            <li key={menu} className="w-[115px] text-center">
+            <li
+              key={menu}
+              className="flex w-[115px] items-center justify-center"
+            >
               <span className="cursor-pointer">{menu}</span>
             </li>
           ))}
