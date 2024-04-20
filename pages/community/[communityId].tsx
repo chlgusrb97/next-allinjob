@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const communityMenuNames = [
+  "all",
   "competitions_external_activities",
   "certifications_language_proficiency",
   "intern",
