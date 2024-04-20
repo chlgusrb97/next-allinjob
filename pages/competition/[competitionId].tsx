@@ -1,3 +1,4 @@
+import InterestFilter from "@/components/InterestFilter/InterestFilter";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -18,5 +19,9 @@ export default function CompetitionPage() {
       router.push("/");
   }, [router.query.competitionId]);
 
-  return <>공모전</>;
+  return (
+    <>
+      <InterestFilter />
+    </>
+  );
 }

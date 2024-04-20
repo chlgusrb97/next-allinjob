@@ -1,5 +1,5 @@
 import CardList from "@/components/Card/CardList";
-import Carousel from "@/components/Carousel";
+// import Carousel from "@/components/Carousel";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function Home() {
   return (
     <>
-      <Carousel />
+      {/* <Carousel /> */}
       <CardList />
     </>
   );
