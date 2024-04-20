@@ -1,5 +1,5 @@
-import CategoryButton from "./Button/CategoryButton";
-import UserInterestButton from "./Button/UserInterestButton";
+import CategoryButton from "../Button/CategoryButton";
+import UserInterestButton from "../Button/UserInterestButton";
 
 export default function Category() {
   return (
