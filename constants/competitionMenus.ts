@@ -1,8 +1,4 @@
-type CompetitionMenu = {
-  id: string;
-  category: string;
-  keywords: string[];
-};
+import { CompetitionMenu } from "@/types/menu";
 
 export const competitionMenus: CompetitionMenu[] = [
   {
