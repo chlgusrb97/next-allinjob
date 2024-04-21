@@ -4,6 +4,7 @@ type Props = {
   data: {
     Dday: number;
   };
+
   index: number;
 };
 
