@@ -33,12 +33,19 @@ export default function CardList() {
 
   if (cards)
     return (
-      <div className="smallMobile:grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 col-span-12 grid gap-[15px] mobile:grid-cols-2">
-        {cards.map((post, index) => (
-          <Card key={post.id + index} data={post} index={index} />
-        ))}
+      <div className="col-span-12">
+        <div className="grid w-full gap-[15px] smallMobile:grid-cols-1 mobile:grid-cols-2  tablet:grid-cols-3 desktop:grid-cols-4">
+          {cards.map((post, index) => (
+            <Card
+              key={post.id + index}
+              data={post}
+              index={index}
+              variant="competition"
+            />
+          ))}
+        </div>
         {hasNextPage && (
-          <div className="col-span-2 col-start-2 flex justify-center p-1">
+          <div className="col-span-2 col-start-2 mb-[100px] flex justify-center p-1">
             <button
               className=" rounded-md border-2 p-3 shadow-black-200"
               onClick={() => fetchNextPage()}
@@ -47,7 +54,6 @@ export default function CardList() {
             </button>
           </div>
         )}
-        {/* <div ref={ref}></div> */}
       </div>
     );
   if (hasNextPage) return <div>loading</div>;
