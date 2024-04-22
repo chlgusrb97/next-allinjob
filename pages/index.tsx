@@ -1,7 +1,9 @@
 import CardList, { getPosts } from "@/components/Card/CardList";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
+import { useCallback, useRef } from "react";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick-theme.css";
@@ -40,6 +42,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export default function Home() {
+  const slickRef = useRef<Slider>(null);
+  const previous = useCallback(
+    () => slickRef?.current && slickRef.current.slickPrev(),
+    [],
+  );
+  const next = useCallback(
+    () => slickRef?.current && slickRef.current.slickNext(),
+    [],
+  );
+
   var settings = {
     dots: true,
     infinite: true,
@@ -49,6 +61,8 @@ export default function Home() {
     autoplay: true,
     autoplaySpeed: 2000,
     dotsClass: "slick-dots",
+    arrows: false,
+    cursor: "pointer",
   };
 
   const images = [
@@ -59,8 +73,13 @@ export default function Home() {
 
   return (
     <>
-      <div className="slider-container col-span-12">
-        <Slider {...settings} dotsClass="slick-dots" className="relative">
+      <div className="slider-container relative col-span-12">
+        <Slider
+          ref={slickRef}
+          {...settings}
+          dotsClass="slick-dots"
+          className="relative"
+        >
           {images.map((image, index) => (
             <div
               key={index}
@@ -70,6 +89,12 @@ export default function Home() {
             </div>
           ))}
         </Slider>
+        <div onClick={previous} className="absolute top-1/2">
+          <ChevronLeft className="text-white" />
+        </div>
+        <div onClick={next} className="absolute right-0 top-1/2">
+          <ChevronRight className="text-white" />
+        </div>
       </div>
       <CardList />
     </>
