@@ -48,6 +48,7 @@ export default function Home() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
+    dotsClass: "slick-dots",
   };
 
   const images = [
@@ -58,15 +59,8 @@ export default function Home() {
 
   return (
     <>
-      {/* <VisibleArea height={"h-[400px]"}>
-        <Carousel
-          sliderRef={sliderRef}
-          width={slideWidth}
-          getImageElements={getImageElements}
-        />
-      </VisibleArea> */}
       <div className="slider-container col-span-12">
-        <Slider {...settings}>
+        <Slider {...settings} dotsClass="slick-dots" className="relative">
           {images.map((image, index) => (
             <div
               key={index}
