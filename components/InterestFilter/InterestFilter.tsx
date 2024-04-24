@@ -34,9 +34,10 @@ export default function InterestFilter({ menuId, menu }: Props) {
   return (
     <div className="col-span-12 mt-8 grid grid-cols-2 gap-4 rounded-xl bg-background-secondary p-8">
       <Category
-        menuName={menu.menuName}
+        menu={menu}
         categoryList={categoryList}
         currentCategory={currentCategory?.category as string}
+        setCurrentCategory={setCurrentCategory}
       />
       <Keyword KeywordList={currentCategory?.keywords as string[]} />
     </div>
