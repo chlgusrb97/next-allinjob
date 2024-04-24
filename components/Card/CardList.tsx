@@ -9,8 +9,10 @@ export const getPosts = async <T extends number | string>(
   nextPage: number | null;
 }> => {
   const api = `https://mmta.kr/crawling/finde/outside`;
-  const res = await fetch(`${api}?page=${page}`);
-  const res2 = await fetch(`${api}?count=true`);
+  const [res, res2] = await Promise.all([
+    fetch(`${api}?page=${page}`),
+    fetch(`${api}?count=true`),
+  ]);
   const { data } = await res.json();
   const { data: count } = await res2.json();
 
