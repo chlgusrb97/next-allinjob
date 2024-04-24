@@ -40,7 +40,7 @@ export default function Keyword({ KeywordList }: Props) {
         <h1 className="text-2xl font-bold">키워드</h1>
         <ResetButton />
       </div>
-      <ul className="flex flex-wrap gap-x-2 gap-y-4 border-b border-line-normal pb-6">
+      <ul className="flex flex-wrap gap-x-2 gap-y-4">
         {KeywordList?.map((keyword) => (
           <li key={keyword}>
             <KeywordButton
@@ -54,7 +54,7 @@ export default function Keyword({ KeywordList }: Props) {
         ))}
       </ul>
       {selectedKeywordList.length > 0 && (
-        <ul className="flex flex-wrap gap-x-2 gap-y-4 pt-6">
+        <ul className="mt-6 flex flex-wrap gap-x-2 gap-y-4 border-t border-line-normal pt-6">
           {selectedKeywordList.map((keyword) => (
             <li key={keyword}>
               <KeywordButton
