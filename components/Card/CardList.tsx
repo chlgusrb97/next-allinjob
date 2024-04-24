@@ -8,14 +8,16 @@ export const getPosts = async <T extends number | string>(
   posts: CardType[];
   nextPage: number | null;
 }> => {
-  const res = await fetch(
-    `https://mmta.kr/crawling/finde/outside?page=${page}`,
-  );
+  const api = `https://mmta.kr/crawling/finde/outside`;
+  const res = await fetch(`${api}?page=${page}`);
+  const res2 = await fetch(`${api}?count=true`);
   const { data } = await res.json();
+  const { data: count } = await res2.json();
 
   return {
     posts: data,
-    nextPage: data.length === 12 ? Number(page) + 1 : null,
+    // hasNextPage의 값을 결정합니다.
+    nextPage: count / data.length > Number(page) ? Number(page) + 1 : null,
   };
 };
 
@@ -25,6 +27,7 @@ export default function CardList() {
     queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
+      // getPosts 함수의 리턴값인 nextPage를 반환합니다.
       return lastPage.nextPage;
     },
   });
