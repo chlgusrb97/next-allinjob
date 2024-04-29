@@ -28,7 +28,7 @@ body {
 }
 
 .grid-layout {
-  @apply grid-cols-layout justify-center gap-[24px] xl:grid;
+  @apply grid grid-cols-layout justify-center gap-[24px];
 }
 
 .slick-dots {

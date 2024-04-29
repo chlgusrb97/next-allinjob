@@ -1,5 +1,6 @@
 import CardList, { getPosts } from "@/components/Card/CardList";
-import Carousel from "@/components/Carousel";
+import FingerSlider from "@/components/FingerSlider";
+import { menuKeysEnglish } from "@/components/Header/menus";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["card", "prefetch"],
-    queryFn: () => getPosts(1),
+    queryFn: () => getPosts(1, "competition"),
   });
 
   return {
@@ -41,8 +42,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function Home() {
   return (
     <>
-      <Carousel />
-      <CardList />
+      {/* <Carousel /> */}
+      {menuKeysEnglish.map((menu) => (
+        <FingerSlider key={menu} target={menu} visibleAmount={4} gap={10} />
+      ))}
+      <CardList target="competition" />
     </>
   );
 }

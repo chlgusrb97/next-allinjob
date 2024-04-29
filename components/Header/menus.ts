@@ -1,3 +1,21 @@
+export type MenuType = (keyof typeof menus)[];
+
+export const menuKeysEnglish = [
+  "competition",
+  "outside",
+  "qnet",
+  "language",
+  "intern",
+] as const;
+
+export const menusPair = {
+  competition: "공모전",
+  outside: "대외활동",
+  qnet: "자격증",
+  language: "어학",
+  intern: "인턴",
+} as const;
+
 export const menus = {
   공모전: [
     {
@@ -107,4 +125,6 @@ export const menus = {
       href: "/subMenu/취준job담/자유게시판",
     },
   ],
-};
+} as const;
+
+export const menusKey = Object.keys(menus) as MenuType;
