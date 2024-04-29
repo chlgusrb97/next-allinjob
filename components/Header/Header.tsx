@@ -12,8 +12,6 @@ type Props = {
 export default function Header(props: Props) {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
-  console.log(props.className);
-
   return (
     <nav
       className={cn(

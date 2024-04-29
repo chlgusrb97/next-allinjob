@@ -14,7 +14,14 @@ export default function CardFooter(props: Props) {
       <p className="text-sm text-black-300">{data.enterprise}</p>
       <div className="float-right flex gap-2 text-sm">
         <div className="flex gap-1">
-          <Image alt="bookmark_indicator" src={BookMarkIndicator} width={20} />
+          <Image
+            alt="bookmark_indicator"
+            src={BookMarkIndicator}
+            width={20}
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ height: "auto" }}
+          />
           <span>{"scrap" in data ? data.scrap : 0}</span>
         </div>
         <div className="flex gap-1">

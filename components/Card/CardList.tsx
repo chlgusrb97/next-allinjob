@@ -2,29 +2,39 @@ import { CardType } from "@/pages";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Card from ".";
 
+type Props = {
+  target: "competition" | "outside" | "qnet" | "language" | "intern";
+};
+
 export const getPosts = async <T extends number | string>(
   page: T,
+  target: Props["target"],
 ): Promise<{
   posts: CardType[];
   nextPage: number | null;
 }> => {
-  const res = await fetch(
-    `https://mmta.kr/crawling/finde/outside?page=${page}`,
-  );
+  const api = `https://mmta.kr/crawling/finde/${target}`;
+  const [res, res2] = await Promise.all([
+    fetch(`${api}?page=${page}`),
+    fetch(`${api}?count=true`),
+  ]);
   const { data } = await res.json();
+  const { data: count } = await res2.json();
 
   return {
     posts: data,
-    nextPage: data.length === 12 ? Number(page) + 1 : null,
+    // hasNextPage의 값을 결정합니다.
+    nextPage: count / data.length > Number(page) ? Number(page) + 1 : null,
   };
 };
 
-export default function CardList() {
+export default function CardList({ target }: Props) {
   const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ["posts"],
-    queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
+    queryFn: ({ pageParam = 1 }) => getPosts(pageParam, "competition"),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
+      // getPosts 함수의 리턴값인 nextPage를 반환합니다.
       return lastPage.nextPage;
     },
   });
@@ -33,22 +43,30 @@ export default function CardList() {
 
   if (cards)
     return (
-      <div className="smallMobile:grid-cols-1 tablet:grid-cols-3 desktop:grid-cols-4 col-span-12 grid gap-[15px] mobile:grid-cols-2">
-        {cards.map((post, index) => (
-          <Card key={post.id + index} data={post} index={index} />
-        ))}
-        {hasNextPage && (
-          <div className="col-span-2 col-start-2 flex justify-center p-1">
-            <button
-              className=" rounded-md border-2 p-3 shadow-black-200"
-              onClick={() => fetchNextPage()}
-            >
-              더보기
-            </button>
+      <>
+        <div className="col-span-12">
+          <div className="grid w-full gap-[15px] smallMobile:grid-cols-1 mobile:grid-cols-2  tablet:grid-cols-3 desktop:grid-cols-4">
+            {cards.map((post, index) => (
+              <Card
+                key={post.id + index}
+                data={post}
+                index={index}
+                variant="competition"
+              />
+            ))}
           </div>
-        )}
-        {/* <div ref={ref}></div> */}
-      </div>
+          {hasNextPage && (
+            <div className="col-span-2 col-start-2 mb-[100px] flex justify-center p-1">
+              <button
+                className=" rounded-md border-2 p-3 shadow-black-200"
+                onClick={() => fetchNextPage()}
+              >
+                더보기
+              </button>
+            </div>
+          )}
+        </div>
+      </>
     );
-  if (hasNextPage) return <div>loading</div>;
+  return <div>a</div>;
 }

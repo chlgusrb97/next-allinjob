@@ -28,5 +28,43 @@ body {
 }
 
 .grid-layout {
-  @apply grid-cols-layout justify-center gap-[24px] xl:grid;
+  @apply grid grid-cols-layout justify-center gap-[24px];
+}
+
+.slick-dots {
+  margin: auto 0;
+  padding: 0;
+  position: absolute;
+  bottom: 25px !important;
+}
+
+.slick-dots li {
+  list-style: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 6px;
+  padding: 0;
+}
+
+.slick-dots li button {
+  border: none;
+  color: transparent;
+  cursor: pointer;
+  display: block;
+  border-radius: 100%;
+  padding: 0;
+}
+
+.slick-dots li.slick-active button::before {
+  color: dodgerblue !important;
+}
+
+.slick-dots li button::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  color: white;
+  opacity: 1 !important;
 }
